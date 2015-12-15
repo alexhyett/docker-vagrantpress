@@ -1,0 +1,11 @@
+.vagrant
+.DS_Store
+src/index.php
+src/plugins/hello.php
+src/plugins/index.php
+src/plugins/akismet
+
+src/themes/index.php
+src/themes/twentyfourteen
+src/themes/twentyfifteen
+src/themes/twentysixteen

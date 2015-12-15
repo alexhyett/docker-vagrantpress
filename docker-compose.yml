@@ -1,0 +1,17 @@
+web:
+  image: wordpress
+  links:
+    - mysql
+  environment:
+    - WORDPRESS_DB_PASSWORD=password
+  ports:
+    - 80:80
+  working_dir: /var/www/html
+  volumes:
+    - /vagrant/src/:/var/www/html/wp-content
+
+mysql:
+  image: mysql:5.7
+  environment:
+    - MYSQL_ROOT_PASSWORD=password
+    - MYSQL_DATABASE=wordpress
