@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.hostsupdater.remove_on_suspend = true
 
   config.vm.provision :docker
-  config.vm.provision :docker_compose, yml: "/vagrant/docker-compose.yml", run: "always"
+  config.vm.provision :docker_compose, yml: "/vagrant/compose-prod.yml", run: "always"
   
   # Fix for slow external network connections
   config.vm.provider :virtualbox do |vb|
