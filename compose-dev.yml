@@ -15,3 +15,6 @@ mysql:
   environment:
     - MYSQL_ROOT_PASSWORD=password
     - MYSQL_DATABASE=wordpress
+  volumes:
+  - /vagrant/data/:/docker-entrypoint-initdb.d
+  - /vagrant/scripts/:/scripts
