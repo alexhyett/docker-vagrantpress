@@ -19,9 +19,20 @@ RUN set -ex \
 ENV NPM_CONFIG_LOGLEVEL info
 ENV NODE_VERSION 5.3.0
 
+# install nodejs, php composer and php qa
 RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.gz" \
   && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
   && gpg --verify SHASUMS256.txt.asc \
   && grep " node-v$NODE_VERSION-linux-x64.tar.gz\$" SHASUMS256.txt.asc | sha256sum -c - \
   && tar -xzf "node-v$NODE_VERSION-linux-x64.tar.gz" -C /usr/local --strip-components=1 \
-  && rm "node-v$NODE_VERSION-linux-x64.tar.gz" SHASUMS256.txt.asc
+  && rm "node-v$NODE_VERSION-linux-x64.tar.gz" SHASUMS256.txt.asc \
+  && curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer \
+  && apt-get update && apt-get install -y zlib1g-dev zip git \
+  && composer global require "phpunit/phpunit=4.4.*" \
+  && composer global require "phploc/phploc=*" \
+  && composer global require "sebastian/phpcpd=*" \
+  && composer global require "squizlabs/php_codesniffer=2.1.*" \
+  && git clone git://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git /usr/share/php/PHP/CodeSniffer/Standards/WordPress \
+  && composer global require "pdepend/pdepend=2.0.*" \
+  && composer global require "phpmd/phpmd=2.1.*" \
+  && composer global require "mayflower/php-codebrowser=~1.1"
